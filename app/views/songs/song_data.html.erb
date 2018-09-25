@@ -1,0 +1,17 @@
+<table border="1">
+  <tr>
+    <th>曲名</th><th>名義</th><th>作詞</th>
+    <th>作曲</th><th>編曲</th><th>アルバム</th>
+  </tr>
+
+  <% @songs.each do |song| %>
+    <tr>
+      <td><%= song.titles %></td>
+      <td><%= song.singers %></td>
+      <td><%= song.lyrists %></td>
+      <td><%= song.composers %></td>
+      <td><%= song.arrangers %></td>
+      <td><%= song.albums %></td>
+    </tr>
+  <% end %>
+</table>

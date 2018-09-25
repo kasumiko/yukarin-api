@@ -1,13 +1,21 @@
-class SongsController < ApplicationController
+class SongsController < ActionController::Base
 
   # GET /songs/list
   def list 
     @songs = Song.all
-
-    render json: @songs
+    @titles = []
+    @songs.each{|song| @titles << song[:titles]}
+    render "songs/songs_list"
   end
 
 
+  # GET /songs/:songtitle
+  def view 
+    @songs = []
+    @songs << Song.find_by(titles: params[:songtitle])
+
+    render "songs/song_data"
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
