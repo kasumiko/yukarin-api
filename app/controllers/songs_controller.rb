@@ -1,18 +1,15 @@
-class SongsController < ActionController::Base
-
+class SongsController < ApplicationController
   # GET /songs/list
   def list 
-    @songs = Song.all
-    @titles = []
-    @songs.each{|song| @titles << song[:titles]}
+    @songs = Song.order(:released_dates)
+    @titles = @songs.pluck(:titles)
     render "songs/songs_list"
   end
 
 
   # GET /songs/:songtitle
   def view 
-    @songs = []
-    @songs << Song.find_by(titles: params[:songtitle])
+    @songs = Song.where(titles: params[:songtitle])
 
     render "songs/song_data"
   end

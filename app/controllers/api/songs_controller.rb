@@ -1,17 +1,16 @@
 module Api 
-  class SongsController < ApplicationController
+  class SongsController < ActionController::API
 
     # GET /songs/list
     def list 
-      @songs = Song.all
-      @titles = []
-      @songs.each{|song| @titles << song[:titles]}
+      @songs = Song.order(:released_dates)
+      @titles = @songs.pluck(:titles)
       render json: @titles.uniq
     end
 
 
     def show 
-      @songs = Song.find_by(titles: params[:songtitle])
+      @songs = Song.where(titles: params[:songtitle])
 
       render json: @songs
     end
