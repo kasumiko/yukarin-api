@@ -13,3 +13,18 @@
  *= require_tree .
  *= require_self
  */
+/*
+@font-face{
+  font-family: 'Yukarin';
+  src: url('capanitoM.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  font-family: 'Yukarin';
+}
+*/
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap";
