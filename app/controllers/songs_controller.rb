@@ -14,14 +14,37 @@ class SongsController < ApplicationController
     render "songs/song_data"
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_song
-      @song = Song.find(params[:id])
+  # GET /songs/:songtitle
+  def artist_view 
+    @artist = params[:name]
+    case params[:type]
+    when "lyrists"
+      @songs = Song.where(lyrists: @artist)
+      @type = "作詞"
+    when "singers"
+      @songs = Song.where(singers: @artist)
+      @type = "名義"
+    when "composers"
+      @songs = Song.where(composers: @artist)
+      @type = "作曲"
+    when "arrangers"
+      @songs = Song.where(arrangers: @artist)
+      @type = "編曲"
     end
+    render "artists/artist_data"
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def song_params
-      params.fetch(:song, {})
+  # POST /songs/search !not REST
+  def search
+    if params[:keywords]
+      words = params[:keywords].split
+      @keywords = ""
+      words.each{|word|@keywords += "(?=.*#{word})"}
+      @search = Song.where('titles REGEXP :keywords' ,keywords: @keywords)
+    else
+      @search = []
     end
+      render 'layouts/index'
+  end
+
 end

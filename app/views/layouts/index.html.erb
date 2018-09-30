@@ -1,0 +1,40 @@
+<h1>とっぷぺえじ</h1>
+
+<p> song search </p>
+<%= form_tag "/songs/search" do %>
+  <p>
+    曲名 : <br />
+    <%= text_field_tag "keywords", params[:keywords] %><br />
+    <%= submit_tag "検索" %>
+  </p>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th width="450">曲名</th>
+      <th width="150">名義</th>
+      <th width="150">作詞</th>
+      <th width="150">作曲</th>
+      <th width="150">編曲</th>
+      <th width="150">収録アルバム</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <br />
+  <tbody>
+    <%if(@search!=nil)%>
+    <% @search.each do |song| %>
+      <tr>
+        <td><%= link_to song.titles ,'/songs/'+song.titles %></td>
+        <td><%= song.singers %></td>
+        <td><%= song.lyrists %></td>
+        <td><%= song.composers %></td>
+        <td><%= song.arrangers %></td>
+        <td><%= song.albums %></td>
+        <td><%#= link_to 'Show',song %></td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>

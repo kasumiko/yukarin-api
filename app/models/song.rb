@@ -1,3 +1,12 @@
 class Song < ApplicationRecord
-    scope :with_regexp, -> (column, pattern) { where("`#{table_name}`.`#{column}` REGEXP ?", pattern) }
+
+  def self.search(keyword)
+    if keyword
+      keyword.split
+      @keywords = ""
+      words.each{|word|@keywords += "(?=.*#{word})"}
+      @search = where('titles REGEXP :keywords' ,keywords: @keywords)
+    end
+  end
+
 end

@@ -1,0 +1,23 @@
+<table>
+  <h2>  <%=@type +": "+ @artist+ "の楽曲"%> </h2>
+  <thead>
+    <tr>
+      <th width="400">曲名</th>
+      <th width="150">名義</th>
+      <th width="150">作詞</th>
+      <th width="150">作曲</th>
+      <th width="150">編曲</th>
+      <th width="150">アルバム</th>
+  </tr>
+  </thead>
+  <% @songs.each do |song| %>
+    <tr>
+      <td> <%= song.titles %> </td>
+      <td> <%= song.singers %> </td>
+      <td> <%= song.lyrists %> </td>
+      <td> <%= song.composers %> </td>
+      <td> <%= song.arrangers %> </td>
+      <td> <%= song.albums %> </td>
+    </tr>
+  <% end %>
+</table>
