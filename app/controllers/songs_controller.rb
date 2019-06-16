@@ -9,12 +9,21 @@ class SongsController < ApplicationController
 
   # GET /songs/:songtitle
   def view 
-    @songs = Song.where(titles: params[:songtitle])
+    @title = params[:title].gsub("?","\?")
+    @songs = Song.where(titles: @title)
 
     render "songs/song_data"
   end
 
-  # GET /songs/:songtitle
+  # GET /albums/:title
+  def album_view 
+    @title = params[:title].gsub("?","\?")
+    @songs = Song.where(albums: @title)
+    @album = @songs[0]
+
+    render "albums/album_data"
+  end
+  # GET /artists/:type/:name
   def artist_view 
     @artist = params[:name]
     case params[:type]
@@ -38,8 +47,13 @@ class SongsController < ApplicationController
   def search
     if params[:keywords]
       words = params[:keywords].split
+      
       @keywords = ""
-      words.each{|word|@keywords += "(?=.*#{word})"}
+      words.each do |word|
+        word.gsub!("?","\\?")
+        @keywords += "(?=.*#{word})"
+    end
+
       @search = Song.where('titles REGEXP :keywords' ,keywords: @keywords)
     else
       @search = []

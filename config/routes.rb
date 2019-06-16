@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root 'application#index'
   get '/api/albums/list' , to: 'api/songs#album_list'
   get '/songs/list' , to: 'songs#list'
-  get '/songs/:songtitle' , to: 'songs#view'
+  get '/songs/:title' , to: 'songs#view'
   post '/songs/search' , to: 'songs#search'
   get '/artists/:type/:name' , to: 'songs#artist_view'
+  get '/albums/:title' , to: 'songs#album_view'
 
   #API
   get '/api/songs/list' , to: 'api/songs#list'

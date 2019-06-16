@@ -1,23 +1,25 @@
 <table>
-  <h2>  <%=@type +": "+ @artist+ "の楽曲"%> </h2>
+  <h2> nth  <%=@album.album_type + ": " + @album.albums%> </h2>
+  発売日  <%=@album.released_dates%> <br /> 
+  規格品番  <%=@album.album_ids%> 
   <thead>
     <tr>
+      <th width="50">Track</th>
       <th width="400">曲名</th>
       <th width="150">名義</th>
       <th width="150">作詞</th>
       <th width="150">作曲</th>
       <th width="150">編曲</th>
-      <th width="150">アルバム</th>
   </tr>
   </thead>
   <% @songs.each do |song| %>
     <tr>
+      <td> <%= song.track_numbers %> </td>
       <td> <%= link_to song.titles , '/songs/'+song.titles %> </td>
       <td> <%= link_to song.singers , '/artists/singers/'+song.singers %> </td>
       <td> <%= link_to song.lyrists , '/artists/lyrists/'+song.lyrists unless song.lyrists.nil? %> </td>
       <td> <%= link_to song.composers , '/artists/composers/'+song.composers %> </td>
       <td> <%= link_to song.arrangers , '/artists/arrangers/'+song.arrangers %> </td>
-      <td> <%= link_to song.albums , '/albums/'+song.albums %> </td>
     </tr>
   <% end %>
 </table>
